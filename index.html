@@ -1,0 +1,1390 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wastify | اعرف مكانها الصحيح</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: "IBM Plex Sans Arabic", "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+
+    :root {
+      --bg: #F5F7F6;
+      --surface: #FFFFFF;
+      --surface-soft: #E8F5E9;
+      --text: #4F4F4F;
+      --muted: #68736C;
+      --green: #2E7D32;
+      --green-2: #1B5E3F;
+      --green-soft: #A5D6A7;
+      --border: #DCE6DE;
+      --shadow: 0 6px 22px rgba(27, 94, 63, 0.05);
+    }
+
+    body.dark {
+      --bg: #1E293B;
+      --surface: #374151;
+      --surface-soft: #283344;
+      --text: #E5E7EB;
+      --muted: #A7B3C2;
+      --green: #81C784;
+      --green-2: #66BB6A;
+      --green-soft: #A5D6A7;
+      --accent: #81D4FA;
+      --border: #4B5563;
+      --shadow: 0 8px 26px rgba(0, 0, 0, 0.28);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .topbar {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+
+    .topbar-inner {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 11px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--green-2);
+    }
+
+    body.dark .brand {
+      color: var(--green);
+    }
+
+    .brand-badge {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: var(--surface-soft);
+      color: var(--green);
+      display: grid;
+      place-items: center;
+      font-size: 0.85rem;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      font-size: 0.84rem;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .nav-links a:hover {
+      color: var(--green);
+    }
+
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .pill-btn {
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 0.76rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .pill-btn:hover {
+      border-color: var(--green);
+    }
+
+    .container {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 30px 20px 64px;
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      margin: 0 0 8px;
+      font-size: 2.15rem;
+      font-weight: 700;
+      color: var(--green-2);
+      letter-spacing: -0.01em;
+    }
+
+    body.dark .hero h1 {
+      color: var(--text);
+    }
+
+    .hero p {
+      margin: 0 auto;
+      max-width: 520px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .banner {
+      background: linear-gradient(120deg, var(--green-2) 0%, var(--green) 100%);
+      color: #FFFFFF;
+      border-radius: 18px;
+      padding: 22px 26px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    body.dark .banner {
+      background: linear-gradient(120deg, #283344 0%, #374151 100%);
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+
+    .banner-chip {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 600;
+      background: rgba(255, 255, 255, 0.16);
+      padding: 3px 11px;
+      border-radius: 999px;
+      margin-bottom: 8px;
+    }
+
+    body.dark .banner-chip {
+      background: rgba(129, 212, 250, 0.15);
+      color: var(--accent);
+    }
+
+    .banner h2 {
+      margin: 0 0 4px;
+      font-size: 1.38rem;
+      font-weight: 700;
+    }
+
+    .banner p {
+      margin: 0;
+      font-size: 0.85rem;
+      opacity: 0.92;
+    }
+
+    .banner-orb {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.16);
+      display: grid;
+      place-items: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .card h3 {
+      margin: 0;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .card-sub {
+      margin: 2px 0 0;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .head-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: var(--surface-soft);
+      color: var(--green);
+      display: grid;
+      place-items: center;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+    }
+
+    .dropzone {
+      border: 1.5px dashed var(--green-soft);
+      background: var(--surface-soft);
+      border-radius: 14px;
+      padding: 28px 16px;
+      text-align: center;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .dropzone:hover,
+    .dropzone.dragover {
+      border-color: var(--green);
+    }
+
+    .dz-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 9px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      display: grid;
+      place-items: center;
+      font-size: 1rem;
+      margin-bottom: 2px;
+    }
+
+    .dropzone strong {
+      font-size: 0.86rem;
+      font-weight: 700;
+    }
+
+    .dropzone span {
+      font-size: 0.74rem;
+      color: var(--muted);
+    }
+
+    .divider-or {
+      position: relative;
+      text-align: center;
+      margin: 12px 0;
+      font-size: 0.74rem;
+      color: var(--muted);
+    }
+
+    .divider-or::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      inset-inline: 0;
+      height: 1px;
+      background: var(--border);
+      z-index: 0;
+    }
+
+    .divider-or span {
+      position: relative;
+      z-index: 1;
+      background: var(--surface);
+      padding: 0 10px;
+    }
+
+    .btn-outline {
+      width: 100%;
+      padding: 9px 12px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .btn-outline:hover {
+      background: var(--surface-soft);
+    }
+
+    .camera-box {
+      margin-top: 10px;
+      background: var(--surface-soft);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 10px;
+    }
+
+    .camera-box video {
+      width: 100%;
+      max-height: 210px;
+      border-radius: 10px;
+      background: #000;
+      display: block;
+    }
+
+    .camera-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .camera-actions button {
+      flex: 1;
+      padding: 8px 10px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .cam-snap-btn {
+      border: none;
+      background: var(--green);
+      color: #fff;
+    }
+
+    body.dark .cam-snap-btn {
+      color: #1E293B;
+    }
+
+    .cam-close-btn {
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .cam-msg {
+      margin-top: 6px;
+      font-size: 0.74rem;
+      color: var(--muted);
+    }
+
+    .action-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .btn-primary {
+      flex: 1;
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: none;
+      background: var(--green);
+      color: #FFFFFF;
+      font-size: 0.86rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    body.dark .btn-primary {
+      color: #1E293B;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background: var(--green-2);
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    .btn-secondary {
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .btn-secondary:hover {
+      background: var(--surface-soft);
+      border-color: var(--green);
+    }
+
+    .preview-frame {
+      height: 235px;
+      border-radius: 12px;
+      background: var(--surface-soft);
+      border: 1px solid var(--border);
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      margin-bottom: 12px;
+      padding: 6px;
+    }
+
+    .preview-empty {
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+
+    .preview-empty span {
+      display: block;
+      font-size: 1.35rem;
+      margin-bottom: 4px;
+    }
+
+    .preview-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .result-strip {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 9px 12px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--surface-soft);
+      margin-bottom: 10px;
+    }
+
+    .result-strip.recyclable {
+      background: #E8F5E9;
+      border-color: #A5D6A7;
+      color: #1B5E3F;
+    }
+
+    .result-strip.organic {
+      background: #FFF8E1;
+      border-color: #FFE082;
+      color: #6D4C00;
+    }
+
+    body.dark .result-strip.recyclable {
+      background: rgba(165, 214, 167, 0.16);
+      border-color: #A5D6A7;
+      color: #A5D6A7;
+    }
+
+    body.dark .result-strip.organic {
+      background: rgba(129, 212, 250, 0.14);
+      border-color: #81D4FA;
+      color: #81D4FA;
+    }
+
+    .result-strip small {
+      display: block;
+      font-size: 0.72rem;
+      opacity: 0.85;
+    }
+
+    .result-strip strong {
+      font-size: 0.92rem;
+      font-weight: 700;
+    }
+
+    .tag-pill {
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+
+    .field-panel {
+      background: var(--surface-soft);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 10px 12px;
+      margin-bottom: 10px;
+    }
+
+    .field-panel label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    .field-hint {
+      display: block;
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .field-panel select {
+      width: 100%;
+      padding: 7px 10px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      font-size: 0.8rem;
+    }
+
+    .route-panel {
+      background: var(--surface-soft);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 11px 13px;
+    }
+
+    .route-panel strong {
+      display: block;
+      font-size: 0.84rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+      color: var(--green-2);
+    }
+
+    body.dark .route-panel strong {
+      color: var(--green);
+    }
+
+    .route-panel p {
+      margin: 0;
+      font-size: 0.8rem;
+      color: var(--text);
+    }
+
+    .active-category-banner {
+      background: var(--surface-soft);
+      border: 1px solid var(--green-soft);
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .active-category-banner .cat-ico {
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+
+    .active-category-banner strong {
+      display: block;
+      font-size: 0.88rem;
+      font-weight: 700;
+    }
+
+    .active-category-banner small {
+      display: block;
+      font-size: 0.74rem;
+      color: var(--muted);
+    }
+
+    .tips-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 0.8rem;
+    }
+
+    .tips-list li {
+      background: var(--surface-soft);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 9px 12px;
+    }
+
+    .clear-link {
+      border: none;
+      background: transparent;
+      color: var(--green);
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    body.dark .clear-link {
+      color: var(--accent);
+    }
+
+    .history-empty {
+      text-align: center;
+      padding: 20px 10px;
+      margin: auto 0;
+    }
+
+    .history-empty .h-ico {
+      width: 34px;
+      height: 34px;
+      margin: 0 auto 6px;
+      border-radius: 10px;
+      background: var(--surface-soft);
+      border: 1px solid var(--border);
+      display: grid;
+      place-items: center;
+      font-size: 0.95rem;
+    }
+
+    .history-empty strong {
+      display: block;
+      font-size: 0.82rem;
+    }
+
+    .history-empty small {
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+
+    .history-items {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      max-height: 165px;
+      overflow-y: auto;
+    }
+
+    .history-items li {
+      background: var(--surface-soft);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 8px 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.78rem;
+    }
+
+    .faq-wrap {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    .faq-caption {
+      display: inline-block;
+      background: var(--surface-soft);
+      color: var(--green-2);
+      font-size: 0.74rem;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 999px;
+      margin-bottom: 6px;
+    }
+
+    body.dark .faq-caption {
+      color: var(--green);
+    }
+
+    .faq-wrap h2 {
+      margin: 4px 0 16px;
+      font-size: 1.38rem;
+      font-weight: 700;
+    }
+
+    .faq-stack {
+      text-align: start;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .faq-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 13px 16px;
+      box-shadow: var(--shadow);
+    }
+
+    .faq-box summary {
+      cursor: pointer;
+      font-size: 0.86rem;
+      font-weight: 700;
+    }
+
+    .faq-box p {
+      margin: 8px 0 0;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    @media (max-width: 820px) {
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+      .nav-links {
+        display: none;
+      }
+      .hero h1 {
+        font-size: 1.65rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <span class="brand-badge">♻️</span>
+        <span>Wastify</span>
+      </div>
+
+      <nav class="nav-links">
+        <a href="#workspace" id="navHome">الرئيسية</a>
+        <a href="#guides" id="navGuides">طريقة الفرز والنصائح</a>
+        <a href="#faq" id="navFaq">الأسئلة الشائعة</a>
+      </nav>
+
+      <div class="topbar-actions">
+        <button type="button" class="pill-btn" id="langBtn">English</button>
+        <button type="button" class="pill-btn" id="themeBtn">وضع داكن</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <h1 id="heroTitle">اعرف مكانها الصحيح</h1>
+      <p id="heroSubtitle">صور النفايات وسنساعدك على تحديد نوعها وأفضل طريقة لفرزها بخطوات بسيطة وواضحة.</p>
+    </section>
+
+    <section class="banner">
+      <div>
+        <span class="banner-chip" id="bannerTag">خطوة صغيرة، فرق كبير</span>
+        <h2 id="bannerTitle">معاً.. لبيئة أنظف</h2>
+        <p id="bannerDesc">كل قطعة تضعها في مكانها الصحيح تمنح بيئتنا فرصة لحياة جديدة.</p>
+      </div>
+      <div class="banner-orb">🌱</div>
+    </section>
+
+    <section id="workspace" class="grid-2">
+      <div class="card">
+        <div class="card-top">
+          <div>
+            <h3 id="inputTitle">إدخال الصورة</h3>
+            <p class="card-sub" id="inputSubtitle">ارفع صورة أو التقطها مباشرة</p>
+          </div>
+          <div class="head-icon">⬆️</div>
+        </div>
+
+        <label for="imageInput" class="dropzone" id="dropzone">
+          <div class="dz-icon">🖼️</div>
+          <strong id="dropMain">اسحب الصورة هنا أو اضغط للرفع</strong>
+          <span id="dropHint">PNG, JPG, WEBP • حتى 10 ميجابايت</span>
+          <input type="file" id="imageInput" accept="image/*" hidden />
+        </label>
+
+        <div class="divider-or"><span id="orText">أو</span></div>
+
+        <button type="button" class="btn-outline" id="captureBtn">📷 التقاط صورة</button>
+
+        <div id="cameraBox" class="camera-box hidden">
+          <video id="cameraVideo" autoplay playsinline></video>
+          <div class="camera-actions">
+            <button type="button" class="cam-snap-btn" id="snapBtn">التقاط الآن</button>
+            <button type="button" class="cam-close-btn" id="closeCamBtn">إغلاق</button>
+          </div>
+          <div id="camMsg" class="cam-msg hidden"></div>
+        </div>
+
+        <div class="action-row">
+          <button type="button" class="btn-primary" id="predictBtn" disabled>تصنيف الصورة</button>
+          <button type="button" class="btn-secondary" id="resetBtn">تحليل صورة أخرى</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-top">
+          <div>
+            <h3 id="previewTitle">معاينة الصورة والنتيجة</h3>
+            <p class="card-sub" id="previewSubtitle">تأكد من وضوح الصورة واعرف ماذا تفعل بها</p>
+          </div>
+          <div class="head-icon">✨</div>
+        </div>
+
+        <div class="preview-frame">
+          <div class="preview-empty" id="previewPlaceholder">
+            <span>🖼️</span>
+            <p id="previewEmpty">ستظهر معاينة الصورة هنا بحجم واضح</p>
+          </div>
+          <img id="previewImg" class="hidden" alt="معاينة الصورة" />
+        </div>
+
+        <div id="resultStrip" class="result-strip hidden">
+          <div>
+            <small id="resultCaption">نوع المادة المصنّفة</small>
+            <strong id="resultType">—</strong>
+          </div>
+          <span class="tag-pill" id="resultCode">—</span>
+        </div>
+
+        <div class="field-panel">
+          <label for="overrideSelect" id="overrideLabel">تعديل التصنيف أو طريقة الفرز</label>
+          <span class="field-hint" id="overrideSub">التصنيف المقترح: تلقائي</span>
+          <select id="overrideSelect">
+            <option value="auto" id="optAuto">تلقائي حسب النموذج</option>
+            <option value="Recyclable" id="optRecyclable">قابل لإعادة التدوير</option>
+            <option value="Organic" id="optOrganic">نفايات عضوية</option>
+          </select>
+        </div>
+
+        <div class="route-panel">
+          <strong id="routeTitle">ماذا تفعل بهذه المادة؟</strong>
+          <p id="routeText">ارفع صورة أو التقطها لتظهر لك الخطوات العملية للتعامل معها.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="guides" class="grid-2">
+      <div class="card">
+        <div class="card-top">
+          <div>
+            <h3 id="tipsTitle">نصائح الفرز الخاصة بالنتيجة</h3>
+            <p class="card-sub" id="tipsSub">تظهر بعد تحديد نوع المادة</p>
+          </div>
+        </div>
+
+        <div id="activeCategoryBox" class="active-category-banner hidden">
+          <span class="cat-ico" id="activeCategoryIcon">♻️</span>
+          <div>
+            <strong id="activeCategoryName">—</strong>
+            <small id="activeCategoryHint">—</small>
+          </div>
+        </div>
+
+        <ul id="tipsList" class="tips-list">
+          <li>ارفع صورة أو التقطها لتظهر نصائح الفرز الخاصة بهذه الفئة فقط.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-top">
+          <div>
+            <h3 id="historyTitle">سجل فرز الجلسة</h3>
+            <p class="card-sub" id="historySub">العناصر التي فرزتها في هذه الجلسة</p>
+          </div>
+          <button type="button" class="clear-link" id="clearHistoryBtn">مسح</button>
+        </div>
+
+        <div id="historyEmpty" class="history-empty">
+          <div class="h-ico">🗑️</div>
+          <strong id="historyEmptyTitle">لا توجد عمليات بعد</strong>
+          <small id="historyEmptyDesc">ابدأ برفع أو التقاط أول صورة</small>
+        </div>
+
+        <ul id="historyList" class="history-items hidden"></ul>
+      </div>
+    </section>
+
+    <section id="faq" class="faq-wrap">
+      <span class="faq-caption" id="faqBadge">معلومات تهمك</span>
+      <h2 id="faqTitle">الأسئلة الشائعة</h2>
+
+      <div class="faq-stack">
+        <details class="faq-box" open>
+          <summary id="q1">ما أنواع النفايات التي يمكن للتطبيق التعرف عليها؟</summary>
+          <p id="a1">يصنف التطبيق المواد إلى فئتين رئيسيتين: قابلة لإعادة التدوير (مثل البلاستيك والورق والمعادن والزجاج) ونفايات عضوية (مثل بقايا الطعام والمواد العضوية).</p>
+        </details>
+
+        <details class="faq-box">
+          <summary id="q2">كيف يتم تصنيف الصورة؟</summary>
+          <p id="a2">تُرسل الصورة إلى السيرفر المحلي (server.py) ليحللها النموذج المدرّب ويحدد الفئة وخطوات التعامل المناسبة.</p>
+        </details>
+
+        <details class="faq-box">
+          <summary id="q3">ماذا أفعل إذا كان التصنيف غير دقيق؟</summary>
+          <p id="a3">يمكنك تغيير التصنيف من القائمة لتحديث خطوات التعامل والنصائح فوراً حسب الفئة الصحيحة.</p>
+        </details>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const API_URL = "http://127.0.0.1:5000/predict";
+
+    const TEXT = {
+      ar: {
+        langBtn: "English",
+        themeDark: "وضع داكن",
+        themeLight: "وضع فاتح",
+        navHome: "الرئيسية",
+        navGuides: "طريقة الفرز والنصائح",
+        navFaq: "الأسئلة الشائعة",
+        heroTitle: "اعرف مكانها الصحيح",
+        heroSubtitle: "صور النفايات وسنساعدك على تحديد نوعها وأفضل طريقة لفرزها بخطوات بسيطة وواضحة.",
+        bannerTag: "خطوة صغيرة، فرق كبير",
+        bannerTitle: "معاً.. لبيئة أنظف",
+        bannerDesc: "كل قطعة تضعها في مكانها الصحيح تمنح بيئتنا فرصة لحياة جديدة.",
+        inputTitle: "إدخال الصورة",
+        inputSubtitle: "ارفع صورة أو التقطها مباشرة",
+        dropMain: "اسحب الصورة هنا أو اضغط للرفع",
+        dropHint: "PNG, JPG, WEBP • حتى 10 ميجابايت",
+        orText: "أو",
+        captureBtn: "📷 التقاط صورة",
+        snapBtn: "التقاط الآن",
+        closeCamBtn: "إغلاق",
+        camDenied: "تعذر فتح الكاميرا — تأكدي من السماح بالوصول للكاميرا أو فتح الصفحة عبر localhost.",
+        predictBtn: "تصنيف الصورة",
+        predictingBtn: "جاري التصنيف...",
+        resetBtn: "تحليل صورة أخرى",
+        previewTitle: "معاينة الصورة والنتيجة",
+        previewSubtitle: "تأكد من وضوح الصورة واعرف ماذا تفعل بها",
+        previewEmpty: "ستظهر معاينة الصورة هنا بحجم واضح",
+        resultCaption: "نوع المادة المصنّفة",
+        recyclableText: "قابل لإعادة التدوير",
+        organicText: "نفايات عضوية",
+        overrideLabel: "تعديل التصنيف أو طريقة الفرز",
+        overrideSubIdle: "التصنيف المقترح: تلقائي",
+        overrideSubPrefix: "التصنيف المقترح: ",
+        optAuto: "تلقائي حسب النموذج",
+        optRecyclable: "قابل لإعادة التدوير",
+        optOrganic: "نفايات عضوية",
+        routeTitle: "ماذا تفعل بهذه المادة؟",
+        routeDefault: "ارفع صورة أو التقطها لتظهر لك الخطوات العملية للتعامل معها.",
+        routeSelected: "الصورة جاهزة — اضغط «تصنيف الصورة» للتأكد من النوع ومعرفة طريقة التعامل معه.",
+        routeRecyclable: "1. فرّغ أي بقايا واشطف المادة بالماء واتركها تجف. 2. اضغطها لتقليل الحجم إذا كانت عبوة. 3. ضعها في حاوية إعادة التدوير (أو سلّم الإلكترونيات والبطاريات لنقاط الجمع المختصة).",
+        routeOrganic: "1. ضع بقايا الطعام والقشور والمواد النباتية في سلة النفايات العضوية أو السماد. 2. لا تغلفها بأكياس بلاستيكية غير قابلة للتحلل. 3. تجنب إضافة اللحوم أو الزيوت الكثيفة في سماد المنزل لتفادي الروائح.",
+        tipsTitle: "نصائح الفرز الخاصة بالنتيجة",
+        tipsSubIdle: "تظهر بعد تحديد نوع المادة",
+        tipsSubRecyclable: "إرشادات خاصة بالمواد القابلة لإعادة التدوير فقط",
+        tipsSubOrganic: "إرشادات خاصة بالنفايات العضوية فقط",
+        recyclableHint: "بلاستيك، ورق وكرتون، معادن، أو زجاج نظيف",
+        organicHint: "بقايا طعام، قشور فواكه وخضار، ومواد نباتية",
+        tipsIdle: ["ارفع صورة أو التقطها لتظهر نصائح الفرز الخاصة بهذه الفئة فقط."],
+        tipsRecyclable: [
+          "تأكد من خلو العبوة من السوائل أو بقايا الطعام حتى لا تفسد بقية المواد القابلة للتدوير.",
+          "الورق والكرتون الملوث بالزيوت أو الشحوم يُستبعد من إعادة التدوير العادية.",
+          "الزجاج المكسور يُلف بأمان قبل التخلص منه لتفادي الإصابات."
+        ],
+        tipsOrganic: [
+          "افصل المواد العضوية عن البلاستيك والمعادن والزجاج منذ البداية.",
+          "تقطيع القشور والبقايا إلى قطع أصغر يسرّع عملية التحلل وتحويلها لسماد.",
+          "تفرغ سلة العضوية بانتظام للحفاظ على نظافة المكان."
+        ],
+        historyTitle: "سجل فرز الجلسة",
+        historySub: "العناصر التي فرزتها في هذه الجلسة",
+        clearBtn: "مسح",
+        historyEmptyTitle: "لا توجد عمليات بعد",
+        historyEmptyDesc: "ابدأ برفع أو التقاط أول صورة",
+        faqBadge: "معلومات تهمك",
+        faqTitle: "الأسئلة الشائعة",
+        q1: "ما أنواع النفايات التي يمكن للتطبيق التعرف عليها؟",
+        a1: "يصنف التطبيق المواد إلى فئتين رئيسيتين: قابلة لإعادة التدوير (مثل البلاستيك والورق والمعادن والزجاج) ونفايات عضوية (مثل بقايا الطعام والمواد العضوية).",
+        q2: "كيف يتم تصنيف الصورة؟",
+        a2: "تُرسل الصورة إلى السيرفر المحلي (server.py) ليحللها النموذج المدرّب ويحدد الفئة وخطوات التعامل المناسبة.",
+        q3: "ماذا أفعل إذا كان التصنيف غير دقيق؟",
+        a3: "يمكنك تغيير التصنيف من القائمة لتحديث خطوات التعامل والنصائح فوراً حسب الفئة الصحيحة.",
+        serverError: "تعذّر الاتصال بـ server.py على http://127.0.0.1:5000 — تأكدي أنه شغال."
+      },
+      en: {
+        langBtn: "العربية",
+        themeDark: "Dark Mode",
+        themeLight: "Light Mode",
+        navHome: "Home",
+        navGuides: "Sorting & Tips",
+        navFaq: "FAQ",
+        heroTitle: "Know Where It Belongs",
+        heroSubtitle: "Snap or upload waste items to identify their type and get clear sorting guidance.",
+        bannerTag: "Small Step, Big Impact",
+        bannerTitle: "Together.. For a Cleaner Planet",
+        bannerDesc: "Every item placed in the right bin gives our environment a second chance.",
+        inputTitle: "Image Input",
+        inputSubtitle: "Upload or capture directly",
+        dropMain: "Drag an image here or click to upload",
+        dropHint: "PNG, JPG, WEBP • Up to 10MB",
+        orText: "OR",
+        captureBtn: "📷 Capture Photo",
+        snapBtn: "Snap Photo",
+        closeCamBtn: "Close",
+        camDenied: "Could not start camera — allow camera permission or open via localhost.",
+        predictBtn: "Classify Image",
+        predictingBtn: "Classifying...",
+        resetBtn: "Analyze Another Image",
+        previewTitle: "Image Preview & Result",
+        previewSubtitle: "Verify the item clearly and see what to do next",
+        previewEmpty: "Image preview will appear here clearly",
+        resultCaption: "Detected Material Type",
+        recyclableText: "Recyclable",
+        organicText: "Organic Waste",
+        overrideLabel: "Adjust Classification or Sorting Route",
+        overrideSubIdle: "Suggested Label: Auto",
+        overrideSubPrefix: "Suggested Label: ",
+        optAuto: "Auto (Model Prediction)",
+        optRecyclable: "Recyclable",
+        optOrganic: "Organic Waste",
+        routeTitle: "What Should You Do With It?",
+        routeDefault: "Upload or capture an image to see clear steps on how to handle it.",
+        routeSelected: "Image ready — click «Classify Image» to verify the type and next steps.",
+        routeRecyclable: "1. Empty any residue, rinse lightly, and let it dry. 2. Flatten containers to save space. 3. Put it in the recycling bin (or take electronics/batteries to dedicated drop-off points).",
+        routeOrganic: "1. Put food scraps, peels, and plant matter in the organic or compost bin. 2. Avoid non-compostable plastic bags. 3. Keep heavy oils or meat out of home compost to avoid odors.",
+        tipsTitle: "Tips For This Result Only",
+        tipsSubIdle: "Shown once a material type is determined",
+        tipsSubRecyclable: "Tips specific to Recyclable items only",
+        tipsSubOrganic: "Tips specific to Organic Waste only",
+        recyclableHint: "Plastic, paper & cardboard, metal, or clean glass",
+        organicHint: "Food scraps, fruit/veggie peels, and plant waste",
+        tipsIdle: ["Upload or capture an image to display sorting tips for this category only."],
+        tipsRecyclable: [
+          "Make sure containers are free of liquids or food residue so they don't contaminate recycling.",
+          "Greasy or oil-soaked paper and cardboard should not go into standard recycling.",
+          "Wrap broken glass safely before disposal to prevent injury."
+        ],
+        tipsOrganic: [
+          "Keep organic waste separate from plastic, metal, and glass from the start.",
+          "Chopping peels and scraps into smaller pieces speeds up decomposition.",
+          "Empty the organic bin regularly to keep the area fresh."
+        ],
+        historyTitle: "Session Sorting Log",
+        historySub: "Items classified in this session",
+        clearBtn: "Clear",
+        historyEmptyTitle: "No items sorted yet",
+        historyEmptyDesc: "Upload or capture your first image to begin",
+        faqBadge: "Good to Know",
+        faqTitle: "Frequently Asked Questions",
+        q1: "What waste categories can the app recognize?",
+        a1: "It classifies items into two main categories: Recyclable (plastic, paper, metal, glass) and Organic Waste (food scraps and organic matter).",
+        q2: "How is an image classified?",
+        a2: "The image is sent to your local server (server.py) where the trained model predicts the category and handling steps.",
+        q3: "What if the prediction looks inaccurate?",
+        a3: "Change the category in the dropdown to update handling steps and tips immediately.",
+        serverError: "Could not reach server.py at http://127.0.0.1:5000 — make sure it is running."
+      }
+    };
+
+    let currentLang = "ar";
+    let selectedFile = null;
+    let lastPrediction = null;
+    let predicting = false;
+    let cameraStream = null;
+    const sessionHistory = [];
+
+    const el = (id) => document.getElementById(id);
+    const overrideSelect = el("overrideSelect");
+
+    function stopCamera() {
+      if (cameraStream) {
+        cameraStream.getTracks().forEach((tr) => tr.stop());
+        cameraStream = null;
+      }
+      el("cameraVideo").srcObject = null;
+      el("cameraBox").classList.add("hidden");
+      el("camMsg").classList.add("hidden");
+    }
+
+    async function openCamera() {
+      const t = TEXT[currentLang];
+      el("cameraBox").classList.remove("hidden");
+      el("camMsg").classList.add("hidden");
+
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        el("camMsg").textContent = t.camDenied;
+        el("camMsg").classList.remove("hidden");
+        return;
+      }
+
+      try {
+        stopCamera();
+        el("cameraBox").classList.remove("hidden");
+        cameraStream = await navigator.mediaDevices.getUserMedia({
+          video: { facingMode: { ideal: "environment" } },
+          audio: false
+        });
+        el("cameraVideo").srcObject = cameraStream;
+      } catch (_) {
+        el("camMsg").textContent = t.camDenied;
+        el("camMsg").classList.remove("hidden");
+      }
+    }
+
+    function snapPhoto() {
+      const video = el("cameraVideo");
+      if (!video.videoWidth || !video.videoHeight) return;
+
+      const canvas = document.createElement("canvas");
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      canvas.getContext("2d").drawImage(video, 0, 0);
+
+      canvas.toBlob((blob) => {
+        if (!blob) return;
+        const file = new File([blob], `wastify-capture-${Date.now()}.jpg`, { type: "image/jpeg" });
+        setSelectedImage(file);
+        stopCamera();
+      }, "image/jpeg", 0.92);
+    }
+
+    function getActiveCategory() {
+      if (overrideSelect.value === "Recyclable" || overrideSelect.value === "Organic") {
+        return overrideSelect.value;
+      }
+      return lastPrediction;
+    }
+
+    function renderActiveView() {
+      const t = TEXT[currentLang];
+      const active = getActiveCategory();
+      const strip = el("resultStrip");
+      const catBox = el("activeCategoryBox");
+      const tipsList = el("tipsList");
+
+      if (!active) {
+        strip.classList.add("hidden");
+        strip.classList.remove("recyclable", "organic");
+        catBox.classList.add("hidden");
+        el("tipsSub").textContent = t.tipsSubIdle;
+        el("routeText").textContent = selectedFile ? t.routeSelected : t.routeDefault;
+        tipsList.innerHTML = t.tipsIdle.map((tip) => `<li>${tip}</li>`).join("");
+        return;
+      }
+
+      const isRecyclable = active === "Recyclable";
+      const label = isRecyclable ? t.recyclableText : t.organicText;
+
+      strip.classList.remove("hidden", "recyclable", "organic");
+      strip.classList.add(isRecyclable ? "recyclable" : "organic");
+      el("resultType").textContent = label;
+      el("resultCode").textContent = active;
+
+      el("routeText").textContent = isRecyclable ? t.routeRecyclable : t.routeOrganic;
+
+      catBox.classList.remove("hidden");
+      el("activeCategoryIcon").textContent = isRecyclable ? "♻️" : "🌿";
+      el("activeCategoryName").textContent = label;
+      el("activeCategoryHint").textContent = isRecyclable ? t.recyclableHint : t.organicHint;
+      el("tipsSub").textContent = isRecyclable ? t.tipsSubRecyclable : t.tipsSubOrganic;
+
+      const tips = isRecyclable ? t.tipsRecyclable : t.tipsOrganic;
+      tipsList.innerHTML = tips.map((tip) => `<li>${tip}</li>`).join("");
+    }
+
+    function renderHistory() {
+      const t = TEXT[currentLang];
+      const emptyBox = el("historyEmpty");
+      const list = el("historyList");
+
+      if (!sessionHistory.length) {
+        emptyBox.classList.remove("hidden");
+        list.classList.add("hidden");
+        list.innerHTML = "";
+        return;
+      }
+
+      emptyBox.classList.add("hidden");
+      list.classList.remove("hidden");
+      list.innerHTML = sessionHistory
+        .map((item) => {
+          const catLabel = item.category === "Recyclable" ? t.recyclableText : t.organicText;
+          return `<li><span>${item.name}</span><strong>${catLabel}</strong></li>`;
+        })
+        .join("");
+    }
+
+    function applyLang(lang) {
+      currentLang = lang;
+      const t = TEXT[lang];
+      document.documentElement.lang = lang;
+      document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+
+      el("langBtn").textContent = t.langBtn;
+      el("themeBtn").textContent = document.body.classList.contains("dark") ? t.themeLight : t.themeDark;
+
+      const ids = [
+        "navHome", "navGuides", "navFaq",
+        "heroTitle", "heroSubtitle",
+        "bannerTag", "bannerTitle", "bannerDesc",
+        "inputTitle", "inputSubtitle", "dropMain", "dropHint", "orText",
+        "captureBtn", "snapBtn", "closeCamBtn", "resetBtn",
+        "previewTitle", "previewSubtitle", "previewEmpty",
+        "resultCaption", "overrideLabel",
+        "optAuto", "optRecyclable", "optOrganic",
+        "routeTitle", "tipsTitle",
+        "historyTitle", "historySub", "historyEmptyTitle", "historyEmptyDesc",
+        "faqBadge", "faqTitle", "q1", "a1", "q2", "a2", "q3", "a3"
+      ];
+      ids.forEach((id) => {
+        if (el(id) && t[id]) el(id).textContent = t[id];
+      });
+
+      el("clearHistoryBtn").textContent = t.clearBtn;
+      el("predictBtn").textContent = predicting ? t.predictingBtn : t.predictBtn;
+      el("overrideSub").textContent = lastPrediction
+        ? t.overrideSubPrefix + (lastPrediction === "Recyclable" ? t.recyclableText : t.organicText)
+        : t.overrideSubIdle;
+
+      renderActiveView();
+      renderHistory();
+    }
+
+    function setSelectedImage(file) {
+      if (!file || !file.type.startsWith("image/")) return;
+      selectedFile = file;
+      lastPrediction = null;
+      overrideSelect.value = "auto";
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        el("previewImg").src = e.target.result;
+        el("previewImg").classList.remove("hidden");
+        el("previewPlaceholder").classList.add("hidden");
+      };
+      reader.readAsDataURL(file);
+
+      el("predictBtn").disabled = false;
+      el("overrideSub").textContent = TEXT[currentLang].overrideSubIdle;
+      renderActiveView();
+    }
+
+    function resetWorkspace() {
+      stopCamera();
+      selectedFile = null;
+      lastPrediction = null;
+      predicting = false;
+      overrideSelect.value = "auto";
+      el("imageInput").value = "";
+
+      el("previewImg").src = "";
+      el("previewImg").classList.add("hidden");
+      el("previewPlaceholder").classList.remove("hidden");
+
+      el("predictBtn").disabled = true;
+      el("predictBtn").textContent = TEXT[currentLang].predictBtn;
+      el("overrideSub").textContent = TEXT[currentLang].overrideSubIdle;
+      renderActiveView();
+    }
+
+    async function runPrediction() {
+      if (!selectedFile || predicting) return;
+      const t = TEXT[currentLang];
+      predicting = true;
+      el("predictBtn").disabled = true;
+      el("predictBtn").textContent = t.predictingBtn;
+
+      try {
+        const formData = new FormData();
+        formData.append("image", selectedFile);
+
+        const res = await fetch(API_URL, { method: "POST", body: formData });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || "Prediction failed");
+
+        const raw = String(data.type || data.label || data.prediction || "").toLowerCase();
+        lastPrediction = raw.includes("organic") ? "Organic" : "Recyclable";
+        overrideSelect.value = "auto";
+
+        el("overrideSub").textContent =
+          t.overrideSubPrefix + (lastPrediction === "Recyclable" ? t.recyclableText : t.organicText);
+
+        sessionHistory.unshift({ name: selectedFile.name, category: lastPrediction });
+        renderHistory();
+        renderActiveView();
+      } catch (_) {
+        el("routeText").textContent = t.serverError;
+      } finally {
+        predicting = false;
+        el("predictBtn").disabled = !selectedFile;
+        el("predictBtn").textContent = t.predictBtn;
+      }
+    }
+
+    const dropzone = el("dropzone");
+    ["dragenter", "dragover"].forEach((evt) => {
+      dropzone.addEventListener(evt, (e) => {
+        e.preventDefault();
+        dropzone.classList.add("dragover");
+      });
+    });
+    ["dragleave", "drop"].forEach((evt) => {
+      dropzone.addEventListener(evt, (e) => {
+        e.preventDefault();
+        dropzone.classList.remove("dragover");
+      });
+    });
+    dropzone.addEventListener("drop", (e) => {
+      const file = e.dataTransfer?.files?.[0];
+      if (file) setSelectedImage(file);
+    });
+
+    el("imageInput").addEventListener("change", (e) => {
+      const file = e.target.files?.[0];
+      if (file) setSelectedImage(file);
+    });
+
+    el("captureBtn").addEventListener("click", openCamera);
+    el("snapBtn").addEventListener("click", snapPhoto);
+    el("closeCamBtn").addEventListener("click", stopCamera);
+    el("predictBtn").addEventListener("click", runPrediction);
+    el("resetBtn").addEventListener("click", resetWorkspace);
+    overrideSelect.addEventListener("change", renderActiveView);
+
+    el("clearHistoryBtn").addEventListener("click", () => {
+      sessionHistory.length = 0;
+      renderHistory();
+    });
+
+    el("langBtn").addEventListener("click", () => {
+      applyLang(currentLang === "ar" ? "en" : "ar");
+    });
+
+    el("themeBtn").addEventListener("click", () => {
+      document.body.classList.toggle("dark");
+      const isDark = document.body.classList.contains("dark");
+      el("themeBtn").textContent = isDark ? TEXT[currentLang].themeLight : TEXT[currentLang].themeDark;
+    });
+
+    applyLang("ar");
+  </script>
+</body>
+</html>
